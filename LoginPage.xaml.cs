@@ -23,9 +23,9 @@ private async void OnLoginClicked(object sender, EventArgs e)
     }
 }
 
-    private async void OnContinueAsCustomerClicked(object sender, EventArgs e)
-    {
-        // Müşteri olarak normal ana sayfaya yönlendir
-        await Navigation.PushAsync(new MainPage());
-    }
+private async void OnContinueAsCustomerClicked(object sender, EventArgs e)
+{
+    
+    Application.Current.MainPage = new AppShell();
+}
 }

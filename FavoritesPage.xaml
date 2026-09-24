@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SeduarApp.FavoritesPage"
+             Title="Favorilerim"
+             BackgroundColor="#f5f5f5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="15" Spacing="15">
+            
+            <Label Text="Favori Ürünleriniz" 
+                   FontSize="20" 
+                   FontAttributes="Bold" 
+                   TextColor="#2b2b2b" 
+                   HorizontalOptions="Center"/>
+
+            <!-- Favori Ürün Listesi -->
+            <CollectionView x:Name="FavoritesCollectionView" ItemsSource="{Binding FavoriteItems}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" VerticalItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BackgroundColor="White" CornerRadius="12" Padding="10" Margin="0" HasShadow="True">
+                            <Grid RowDefinitions="Auto, Auto, Auto, Auto" RowSpacing="6">
+                                
+                                <!-- 1. Ürün Görseli ve Sağ Üstte Kaldırma (Çarpı) Butonu -->
+                                <Grid Grid.Row="0">
+                                    <Image Source="{Binding ImageUrl}" 
+                                           HeightRequest="120" 
+                                           WidthRequest="120" 
+                                           Aspect="AspectFill" 
+                                           BackgroundColor="#f0f0f0"
+                                           HorizontalOptions="Center"/>
+                                    
+                                    <!-- Favoriden Çıkar Butonu (Sağ Üst Köşe) -->
+                                    <Button Text="✕" 
+                                            FontSize="12" 
+                                            BackgroundColor="#e0e0e0" 
+                                            TextColor="#555" 
+                                            HeightRequest="28"
+                                            WidthRequest="28"
+                                            CornerRadius="14"
+                                            Padding="0"
+                                            Clicked="OnRemoveFavoriteClicked"
+                                            CommandParameter="{Binding .}"
+                                            HorizontalOptions="End" 
+                                            VerticalOptions="Start"
+                                            Margin="0,2,2,0"/>
+                                </Grid>
+
+                                <!-- 2. Ürün Adı -->
+                                <Label Grid.Row="1" 
+                                       Text="{Binding Name}" 
+                                       FontSize="13" 
+                                       FontAttributes="Bold" 
+                                       TextColor="#333" 
+                                       LineBreakMode="TailTruncation"/>
+
+                                <!-- 3. Fiyat -->
+                                <Label Grid.Row="2" 
+                                       Text="{Binding Price, StringFormat='₺{0:N2}'}" 
+                                       FontSize="13" 
+                                       TextColor="#e91e63" 
+                                       FontAttributes="Bold"/>
+
+                                <!-- 4. En Altta İnce Sepete Ekle Şeridi -->
+                                <Button Grid.Row="3" 
+                                        Text="Sepete Ekle" 
+                                        FontSize="11"
+                                        BackgroundColor="#2b2b2b" 
+                                        TextColor="White" 
+                                        HeightRequest="32"
+                                        CornerRadius="6"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="OnAddToCartFromFavoritesClicked"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

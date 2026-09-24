@@ -6,32 +6,26 @@
     xmlns:local="clr-namespace:SeduarApp"
     Shell.FlyoutBehavior="Disabled">
 
-    <TabBar>
-        <!-- Tab sarmalayıcısı olmadan doğrudan içerik tanımlıyoruz -->
-        <ShellContent Title="Ana Sayfa" Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}" />
-        
-        <ShellContent Title="Kategoriler">
-            <ContentPage BackgroundColor="White">
-                <Label Text="Kategoriler Sayfası" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
-            </ContentPage>
-        </ShellContent>
-        
-        <ShellContent Title="Sepetim">
-            <ContentPage BackgroundColor="White">
-                <Label Text="Sepet Sayfası" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
-            </ContentPage>
-        </ShellContent>
-        
-        <ShellContent Title="Hesabım">
-            <ContentPage BackgroundColor="White">
-                <Label Text="Profil Sayfası" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
-            </ContentPage>
-        </ShellContent>
+    <!-- Alt menü metinlerini ve ikonlarını dikeyde hizalamak için Global Stil -->
+    <Shell.Resources>
+        <Style TargetType="TabBar">
+            <!-- iOS ve Android için alt bar hizalama ayarları -->
+            <Setter Property="Shell.ForegroundColor" Value="#e91e63"/>
+        </Style>
+    </Shell.Resources>
 
-         <ShellContent Title="Arama">
-            <ContentPage BackgroundColor="White">
-                <Label Text="Arama Sayfası" HorizontalOptions="Center" VerticalOptions="Center" TextColor="Black" />
-            </ContentPage>
-        </ShellContent>
+    <TabBar>
+        <ShellContent Title="Ana Sayfa" 
+                      Route="MainPage" 
+                      ContentTemplate="{DataTemplate local:MainPage}" />
+        
+        <ShellContent Title="Sepetim" 
+                      Route="CartPage" 
+                      ContentTemplate="{DataTemplate local:CartPage}" />
+        
+        <ShellContent Title="Siparişlerim" 
+                      Route="OrdersPage" 
+                      ContentTemplate="{DataTemplate local:OrdersPage}" />
     </TabBar>
+
 </Shell>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SeduarApp.CheckoutPage"
+             Title="Ödeme ve Adres Bilgileri"
+             BackgroundColor="#f5f5f5">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            
+            <Label Text="Teslimat Bilgileri" FontSize="18" FontAttributes="Bold" TextColor="#2b2b2b"/>
+
+            <!-- Ad Soyad -->
+            <Frame BackgroundColor="White" CornerRadius="8" Padding="5">
+                <Entry x:Name="NameEntry" Placeholder="Ad Soyad" FontSize="15"/>
+            </Frame>
+
+            <!-- Telefon -->
+<Frame BackgroundColor="White" CornerRadius="8" Padding="5">
+    <Entry x:Name="PhoneEntry" Placeholder="Telefon (Örn: 05xx xxx xx xx)" Keyboard="Telephone" FontSize="15"/>
+</Frame>
+
+            <!-- Adres -->
+            <Frame BackgroundColor="White" CornerRadius="8" Padding="5">
+                <Editor x:Name="AddressEditor" Placeholder="Teslimat Adresi" HeightRequest="80" FontSize="15"/>
+            </Frame>
+
+            <Label Text="Ödeme Bilgileri" FontSize="18" FontAttributes="Bold" TextColor="#2b2b2b" Margin="0,10,0,0"/>
+
+            <!-- Kart Numarası -->
+            <Frame BackgroundColor="White" CornerRadius="8" Padding="5">
+                <Entry x:Name="CardNumberEntry" Placeholder="Kredi Kartı Numarası (16 Hane)" Keyboard="Numeric" MaxLength="16" FontSize="15"/>
+            </Frame>
+
+            <!-- Tarih ve CVV -->
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="10">
+                <Frame Grid.Column="0" BackgroundColor="White" CornerRadius="8" Padding="5">
+                    <Entry x:Name="ExpiryEntry" Placeholder="AA/YY" MaxLength="5" FontSize="15"/>
+                </Frame>
+                <Frame Grid.Column="1" BackgroundColor="White" CornerRadius="8" Padding="5">
+                    <Entry x:Name="CvvEntry" Placeholder="CVV" Keyboard="Numeric" MaxLength="3" FontSize="15"/>
+                </Frame>
+            </Grid>
+
+            <!-- Siparişi Tamamla Butonu -->
+            <Button Text="Siparişi Onayla ve Tamamla" 
+                    BackgroundColor="#2b2b2b" 
+                    TextColor="White" 
+                    CornerRadius="10"
+                    HeightRequest="50"
+                    Margin="0,20,0,0"
+                    Clicked="OnCompleteOrderClicked"/>
+
+                    
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -2,7 +2,9 @@ namespace SeduarApp;
 
 public partial class AddProductPage : ContentPage
 {
+   
     private readonly ApiService _apiService;
+
 
     public AddProductPage()
     {
@@ -39,7 +41,7 @@ public partial class AddProductPage : ContentPage
         if (success)
         {
             await DisplayAlert("Başarılı", "Ürün başarıyla veritabanına eklendi!", "Tamam");
-            await Navigation.PopAsync(); // Ana sayfaya geri dön
+            await Navigation.PopAsync(); 
         }
         else
         {

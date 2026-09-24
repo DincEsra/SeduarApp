@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SeduarApp.CartPage"
+             Title="Sepetim"
+             BackgroundColor="#f5f5f5">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+        
+        <!-- Üst Sekmeler (SEPET / FAVORİLER) -->
+        <Grid Grid.Row="0" ColumnDefinitions="*, *" BackgroundColor="White" Padding="15,10">
+            <Label Grid.Column="0" Text="SEPET" FontSize="16" FontAttributes="Bold" TextColor="#2b2b2b" HorizontalOptions="Center"/>
+            <Label Grid.Column="1" Text="FAVORİLER" FontSize="16" FontAttributes="Bold" TextColor="Gray" HorizontalOptions="Center">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTabFavoritesClicked"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </Grid>
+
+        <!-- Orta Alan: Ürün Listesi ve Adet Yönetimi -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="15" Spacing="10">
+                <CollectionView x:Name="CartCollectionView" ItemsSource="{Binding CartItems}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="White" CornerRadius="8" Padding="15" Margin="0,5" HasShadow="False">
+                                <Grid ColumnDefinitions="90, *" ColumnSpacing="15">
+                                    <!-- Ürün Görseli -->
+                                    <Image Grid.Column="0" Source="{Binding ImageUrl}" HeightRequest="100" WidthRequest="90" Aspect="AspectFill" BackgroundColor="#f0f0f0"/>
+                                    
+                                    <!-- Ürün Detayları ve Adet Butonları -->
+                                    <VerticalStackLayout Grid.Column="1" Spacing="6">
+                                        <Label Text="{Binding Name}" FontSize="15" FontAttributes="Bold" TextColor="#2b2b2b"/>
+                                        <Label Text="{Binding Price, StringFormat='₺{0:N2}'}" FontSize="15" FontAttributes="Bold" TextColor="#2b2b2b"/>
+                                        
+                                        <!-- Adet Kutusu ve Çöp Kutusu (Sağa Yaslı Düzen) -->
+                                        <Grid ColumnDefinitions="Auto, *" Margin="0,2,0,0">
+                                            <!-- - / Miktar / + Kutusu -->
+                                            <Frame Grid.Column="0" BackgroundColor="White" BorderColor="#ccc" CornerRadius="4" Padding="5" HeightRequest="35" WidthRequest="110">
+                                                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                                                    <Label Text="-" FontSize="16" FontAttributes="Bold">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="OnDecreaseTapped" CommandParameter="{Binding .}"/>
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
+                                                    <Label Text="{Binding Quantity}" FontSize="14" FontAttributes="Bold" VerticalOptions="Center"/>
+                                                    <Label Text="+" FontSize="16" FontAttributes="Bold">
+                                                        <Label.GestureRecognizers>
+                                                            <TapGestureRecognizer Tapped="OnIncreaseTapped" CommandParameter="{Binding .}"/>
+                                                        </Label.GestureRecognizers>
+                                                    </Label>
+                                                </HorizontalStackLayout>
+                                            </Frame>
+                                            
+                                            <!-- Çöp Kutusu -->
+                                            <Label Grid.Column="1" Text="🗑️" FontSize="18" VerticalOptions="Center" HorizontalOptions="End" Margin="0,0,5,0">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Tapped="OnRemoveTapped" CommandParameter="{Binding .}"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </Grid>
+
+                                        <!-- Favorilere Taşı Butonu -->
+                                        <Label Text="FAVORİLERE TAŞI" FontSize="12" FontAttributes="Bold" TextColor="#2b2b2b" Margin="0,6,0,0">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="OnMoveToFavoritesTapped" CommandParameter="{Binding .}"/>
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Alt Bilgi: Toplam ve Siparişi İşleme Al Butonu -->
+        <Frame Grid.Row="2" BackgroundColor="White" CornerRadius="0" Padding="20" HasShadow="True">
+            <VerticalStackLayout Spacing="15">
+                <Grid ColumnDefinitions="*, Auto">
+                    <Label Grid.Column="0" Text="TOPLAM (KDV dahil)" FontSize="13" FontAttributes="Bold" TextColor="Gray" VerticalOptions="Center"/>
+                    <Label Grid.Column="1" x:Name="TotalPriceLabel" Text="₺0,00" FontSize="18" FontAttributes="Bold" TextColor="#2b2b2b"/>
+                </Grid>
+                
+                <Button x:Name="CheckoutButton"
+                        Text="SİPARİŞİ İŞLEME AL" 
+                        BackgroundColor="#00875a" 
+                        TextColor="White" 
+                        FontAttributes="Bold"
+                        CornerRadius="4"
+                        HeightRequest="48"
+                        IsEnabled="False"
+                        Clicked="OnCheckoutClicked"/>
+            </VerticalStackLayout>
+        </Frame>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SeduarApp.ProductDetailPage"
+             Title="Ürün Detayı"
+             BackgroundColor="White">
+
+    <Grid RowDefinitions="*, Auto">
+        
+        <!-- Ürün Bilgileri (Kaydırılabilir Alan) -->
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Spacing="0">
+                
+                <!-- Büyük Ürün Görseli -->
+                <Image Source="{Binding ImageUrl}" 
+                       HeightRequest="300" 
+                       Aspect="AspectFill" 
+                       BackgroundColor="#f9f9f9"/>
+
+                <!-- Detay İçeriği -->
+                <VerticalStackLayout Padding="20" Spacing="15">
+                    
+                    <!-- Kategori ve Favori Butonu -->
+                    <Grid ColumnDefinitions="*, Auto">
+                        <Label Grid.Column="0" Text="{Binding Category}" FontSize="13" TextColor="Gray" VerticalOptions="Center"/>
+                    </Grid>
+
+                    <!-- Ürün Adı -->
+                    <Label Text="{Binding Name}" FontSize="22" FontAttributes="Bold" TextColor="#2b2b2b"/>
+
+                    <!-- Fiyat -->
+                    <Label Text="{Binding Price, StringFormat='₺{0:N2}'}" FontSize="20" FontAttributes="Bold" TextColor="#e91e63"/>
+
+                    <BoxView HeightRequest="1" Color="#f0f0f0" Margin="0,5"/>
+
+                    <!-- Beden Seçimi Başlığı -->
+                    <Label Text="Beden Seçiniz *" FontSize="15" FontAttributes="Bold" TextColor="#2b2b2b" Margin="0,5,0,0"/>
+
+                    <!-- Yatay Kaydırılabilir CollectionView -->
+                    <CollectionView x:Name="SizeCollectionView" 
+                                    HeightRequest="50" 
+                                    SelectionMode="Single"
+                                    SelectionChanged="OnSizeSelectionChanged">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Stroke="#ccc" 
+                                        StrokeThickness="1" 
+                                        BackgroundColor="#f0f0f0" 
+                                        StrokeShape="RoundRectangle 8" 
+                                        WidthRequest="55" 
+                                        HeightRequest="40"
+                                        HorizontalOptions="Center" 
+                                        VerticalOptions="Center">
+                                    <Label Text="{Binding}" 
+                                           HorizontalTextAlignment="Center" 
+                                           VerticalTextAlignment="Center" 
+                                           FontSize="13" 
+                                           TextColor="#333333" 
+                                           FontAttributes="Bold"/>
+                                </Border>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <!-- Ürün Açıklaması Başlığı -->
+                    <Label Text="Ürün Açıklaması" FontSize="16" FontAttributes="Bold" TextColor="#2b2b2b"/>
+                    
+                    <!-- Açıklama Metni -->
+                    <Label Text="{Binding Description}" FontSize="14" TextColor="#555" LineHeight="1.2"/>
+
+                    <!-- Yorumlar Başlığı -->
+<Label Text="Değerlendirmeler ve Yorumlar" FontSize="16" FontAttributes="Bold" TextColor="#2b2b2b" Margin="0,15,0,5"/>
+
+<!-- Yorum Listesi -->
+<CollectionView ItemsSource="{Binding Reviews}" HeightRequest="150">
+    <CollectionView.ItemTemplate>
+        <DataTemplate>
+            <Frame BackgroundColor="#f9f9f9" CornerRadius="8" Padding="10" Margin="0,4" HasShadow="False">
+                <VerticalStackLayout Spacing="2">
+                    <HorizontalStackLayout Spacing="10">
+                        <Label Text="{Binding UserName}" FontAttributes="Bold" FontSize="13" TextColor="#333"/>
+                        <Label Text="{Binding Date}" FontSize="11" TextColor="Gray" VerticalOptions="Center"/>
+                    </HorizontalStackLayout>
+                    <Label Text="{Binding CommentText}" FontSize="13" TextColor="#555"/>
+                </VerticalStackLayout>
+            </Frame>
+        </DataTemplate>
+    </CollectionView.ItemTemplate>
+</CollectionView>
+
+<!-- Yeni Yorum Yapma Alanı -->
+<VerticalStackLayout Spacing="8" Margin="0,10,0,30">
+    <Label Text="Sen de Yorum Yap" FontSize="14" FontAttributes="Bold" TextColor="#2b2b2b"/>
+    <Entry x:Name="CommentEntry" Placeholder="Yorumunuzu yazın..." BackgroundColor="#f0f0f0" HeightRequest="40"/>
+    
+    <!-- Butonu küçülttük, siyah yaptık ve sağa yasladık -->
+    <Button Text="Yorumu Gönder" 
+            BackgroundColor="#2b2b2b" 
+            TextColor="White" 
+            FontSize="12" 
+            HeightRequest="35" 
+            WidthRequest="140"
+            HorizontalOptions="End"
+            CornerRadius="6"
+            Clicked="OnAddReviewClicked"/>
+</VerticalStackLayout>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- En Altta Sabit Sepete Ekle Butonu -->
+        <Frame Grid.Row="1" BackgroundColor="White" CornerRadius="0" Padding="20" HasShadow="True">
+            <Button Text="SEPETE EKLE" 
+                    BackgroundColor="#2b2b2b" 
+                    TextColor="White" 
+                    FontAttributes="Bold"
+                    CornerRadius="8"
+                    HeightRequest="50"
+                    Clicked="OnAddToCartClicked"/>
+        </Frame>
+
+    </Grid>
+</ContentPage>
